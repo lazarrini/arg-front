@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+    <h2>Регистрация участника ARG</h2>
+    <form method="post">
+        <label for="nickname">Введите ник:</label>
+        <input type="text" name="nickname" required>
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+
+    {% if code %}
+    <p>Ваш уникальный код: <strong>{{ code }}</strong></p>
+    {% endif %}
+</body>
+</html>
+
