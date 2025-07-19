@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Форум "Совиная Сказка"</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="forum-container">
+    <div class="online-counter">Пользователей онлайн: <span id="onlineCount"></span></div>
+
+    <div class="topic" id="topic1">
+        <h3 onclick="openModal('topicContent1')">[Тема] Животные вышли из леса</h3>
+        <div class="topic-content modal" id="topicContent1">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('topicContent1')">&times;</span>
+                Очевидцы сообщают, что в городе замечены медведи и другие лесные обитатели. Причины происшествия неизвестны...
+            </div>
+        </div>
+    </div>
+
+    <div class="topic hidden" id="topic2">
+        <h3 onclick="openModal('topicContent2')">[Тема] Блог студента</h3>
+        <div class="topic-content modal" id="topicContent2">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('topicContent2')">&times;</span>
+                Я приехал... за мной увязалось странное животное... кажется, меня преследует девочка. Запись прерывается.
+            </div>
+        </div>
+    </div>
+
+    <div class="topic hidden" id="finalBlock">
+        <h3>[Закрытая тема]</h3>
+        <div class="topic-content modal" id="finalModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('finalModal')">&times;</span>
+                <strong>Ваш код:</strong> <span id="finalCode">--------</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sidebar">
+    <div class="ads">
+        <img src="/static/banner1.jpg" alt="Реклама 1">
+        <img src="/static/banner2.jpg" alt="Реклама 2">
+        <div class="broken-ad">[X] Картинка не загрузилась</div>
+    </div>
+
+    <div class="chatbox">
+        <div class="chat-messages" id="chat">
+            <p><strong>ФорумГай:</strong> Привет... ты видел, что творится на форуме?</p>
+        </div>
+        <div class="chat-input" id="chatInputBox"></div>
+    </div>
+</div>
+
+<div id="overlay"></div>
+
+<script>
+    const chat = document.getElementById('chat');
+    const chatInputBox = document.getElementById('chatInputBox');
+
+    function addMessage(sender, text) {
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${sender}:</strong> ${text}`;
+        chat.appendChild(p);
+        chat.scrollTop = chat.scrollHeight;
+    }
+
+    function addChoice(options, callback) {
+        chatInputBox.innerHTML = '';
+        options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.textContent = opt;
+            btn.onclick = () => {
+                addMessage("Вы", opt);
+                const correct = callback(opt);
+                if (correct) chatInputBox.innerHTML = '';
+            };
+            chatInputBox.appendChild(btn);
+        });
+    }
+
+    function openModal(id) {
+        document.getElementById(id).style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    function generateCode() {
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        let code = '';
+        for (let i = 0; i < 8; i++) {
+            code += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return code;
+    }
+
+    // Фейковый онлайн
+    document.getElementById("onlineCount").textContent = Math.floor(Math.random() * 21) + 5;
+
+    // Сценарий
+    setTimeout(() => {
+        openModal('topicContent1');
+        addMessage("ФорумГай", "Ты понял, почему животные вышли в город?");
+        addChoice(["Лесные пожары", "Затопление", "Вырубка лесов"], (answer) => {
+            if (answer === "Вырубка лесов") {
+                setTimeout(() => {
+                    document.getElementById('topic2').classList.remove('hidden');
+                    openModal('topicContent2');
+                    addMessage("ФорумГай", "Вот, глянь, этот блог студента. Что ты думаешь...");
+                    addChoice(["Медведь", "Лось", "Птица"], (creature) => {
+                        if (creature === "Птица") {
+                            addMessage("ФорумГай", "Вот оно... записывай.");
+                            setTimeout(() => {
+                                window.location.href = "/final";
+                            }, 2000);
+                            return true;
+                        } else {
+                            addMessage("ФорумГай", "Нет, не думаю...");
+                            return false;
+                        }
+                    });
+                }, 2000);
+                return true;
+            } else {
+                addMessage("ФорумГай", "Не похоже на это... подумай ещё.");
+                return false;
+            }
+        });
+    }, 2000);
+</script>
+
+</body>
+</html>
+

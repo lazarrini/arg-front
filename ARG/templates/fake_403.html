@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Ошибка 403 — Доступ запрещен</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #1e1e1e;
+            color: #dcdcdc;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        #error-screen {
+            padding: 100px 20px;
+        }
+
+        h1 {
+            font-size: 80px;
+            color: #ff6666;
+            margin: 0;
+        }
+
+        p {
+            font-size: 18px;
+            color: #aaa;
+            margin: 10px 0;
+        }
+
+        .hint {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #444;
+        }
+
+        .secret {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 20px;
+            font-size: 14px;
+            border: 1px solid #888;
+            background: #2e2e2e;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .secret:hover {
+            background: #444;
+        }
+    </style>
+</head>
+<body>
+
+<div id="error-screen">
+    <h1>403</h1>
+    <p>Доступ к запрашиваемому ресурсу запрещён.</p>
+    <p>У вас нет прав на просмотр этой страницы.</p>
+
+    <div class="hint">
+        <p>сервер: sovina-skazka/forum_v3</p>
+        <p>код: F0RUM_ERRX41</p>
+        <p>id: #F-2a37f</p>
+    </div>
+
+    <div class="secret" onclick="bypassError()">Закрыть</div>
+</div>
+
+<script>
+    function bypassError() {
+        // Плавно скрываем и переходим на ARG
+        const screen = document.getElementById('error-screen');
+        screen.style.transition = "opacity 1s";
+        screen.style.opacity = 0;
+        setTimeout(() => {
+            window.location.href = "/arg";
+        }, 1000);
+    }
+</script>
+
+</body>
+</html>
+

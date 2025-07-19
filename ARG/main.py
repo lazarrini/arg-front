@@ -60,6 +60,20 @@ def register():
 
     return render_template('register.html', code=None)
 
+@app.route('/arg')
+def arg_game():
+    return render_template('arg.html')
+
+@app.route('/start')
+def fake_403():
+    return render_template('fake_403.html')
+
+@app.route('/final')
+def final_page():
+    import uuid
+    code = str(uuid.uuid4())[:8]
+    return render_template('final_403.html', code=code)
+
 if __name__ == '__main__':
     app.run(debug=True)
 
