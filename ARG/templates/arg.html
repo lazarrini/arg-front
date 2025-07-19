@@ -8,8 +8,7 @@
 <body>
 
 <div class="forum-container">
-    <h1> ГОЙДА ГОРОД </h1>
-    <div class="online-counter">Пользователей онлайн: 2</div>
+    <div class="online-counter">Пользователей онлайн: <span id="onlineCount"></span></div>
 
     <div class="topic" id="topic1">
         <h3 onclick="openModal('topicContent1')">[Тема] Животные вышли из леса</h3>
@@ -103,6 +102,9 @@
         return code;
     }
 
+    // Фейковый онлайн
+    document.getElementById("onlineCount").textContent = 2;
+
     // Сценарий
     setTimeout(() => {
         openModal('topicContent1');
@@ -133,7 +135,7 @@
             }
         });
     }, 2000);
-</.script>
+</script>
 
 </body>
 </html>
