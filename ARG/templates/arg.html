@@ -8,7 +8,8 @@
 <body>
 
 <div class="forum-container">
-    <div class="online-counter">Пользователей онлайн: <span id="onlineCount"></span></div>
+    <h1> ГОЙДА ГОРОД </h1>
+    <div class="online-counter">Пользователей онлайн: 2</div>
 
     <div class="topic" id="topic1">
         <h3 onclick="openModal('topicContent1')">[Тема] Животные вышли из леса</h3>
@@ -102,9 +103,6 @@
         return code;
     }
 
-    // Фейковый онлайн
-    document.getElementById("onlineCount").textContent = Math.floor(Math.random() * 21) + 5;
-
     // Сценарий
     setTimeout(() => {
         openModal('topicContent1');
@@ -135,7 +133,7 @@
             }
         });
     }, 2000);
-</script>
+</.script>
 
 </body>
 </html>
